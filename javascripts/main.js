@@ -21,12 +21,29 @@ let weatherInfo = (searchZip) => {
           reject(errorResponse2);
         });
     },(errorResponse) => {
+      console.log(errorResponse);
       reject(errorResponse);
         });
     });
   };
 
-weatherInfo(47712);
+$(document).ready(function(){
+  $('#weather-lookup').on("click", ()=>{
+    let searchy = $("#zip-search").val();
+    console.log("button works", searchy);
+    weatherInfo(searchy).then((dataFromAPI)=>{
+    // $('#weather-lookup').button('reset');
+      let output = $("#output").append(
+        `<div>
+        <h2> ${dataFromAPI.name}</h2>
+        <h2> ${dataFromAPI.main.humidity}</h2>
+        </div>`
+        );
+    });
+    });
+  });
+
+weatherInfo();
 
 
 
